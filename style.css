@@ -46,8 +46,41 @@ h1 {
 
 .list h2 {
   color: #333;
-  margin-bottom: 10px;
   font-size: 1.5rem;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.add-card {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: #333;
+  font: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.add-card:hover,
+.add-card:focus-visible {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.add-card-input {
+  min-width: 0;
+  width: 55%;
+  padding: 6px 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font: inherit;
 }
 
 .card {

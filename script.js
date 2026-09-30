@@ -1,9 +1,8 @@
-const cards = document.querySelectorAll(".card");
 const lists = document.querySelectorAll(".list");
+let nextCardId = 7;
 
-for (const card of cards) {
-  card.addEventListener("dragstart", dragStart);
-  card.addEventListener("dragend", dragEnd);
+for (const card of document.querySelectorAll(".card")) {
+  enableDragging(card);
 }
 
 for (const list of lists) {
@@ -11,6 +10,42 @@ for (const list of lists) {
   list.addEventListener("dragenter", dragEnter);
   list.addEventListener("dragleave", dragLeave);
   list.addEventListener("drop", dragDrop);
+
+  const addButton = list.querySelector(".add-card");
+  addButton.addEventListener("click", () => {
+    const input = document.createElement("input");
+    input.className = "add-card-input";
+    input.type = "text";
+    input.placeholder = "Task title";
+    input.setAttribute("aria-label", "New task title");
+    addButton.hidden = true;
+    addButton.after(input);
+    input.focus();
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        input.remove();
+        addButton.hidden = false;
+      }
+
+      if (e.key === "Enter" && input.value.trim()) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.id = `card${nextCardId++}`;
+        card.draggable = true;
+        card.textContent = input.value.trim();
+        enableDragging(card);
+        list.appendChild(card);
+        input.remove();
+        addButton.hidden = false;
+      }
+    });
+  });
+}
+
+function enableDragging(card) {
+  card.addEventListener("dragstart", dragStart);
+  card.addEventListener("dragend", dragEnd);
 }
 
 function dragStart(e) {
